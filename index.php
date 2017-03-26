@@ -1,14 +1,21 @@
-  <!DOCTYPE html>
+<?php 
+
+  // $current_user = 'Nazmi';
+
+  if (isset($_COOKIE['username'])) {
+    $current_user = $_COOKIE['username'];
+  }
+  // } else {
+  //   echo 'Cookies is not in the refrigerator ';
+  // }
+
+?>
+<!DOCTYPE html>
   <html>
     <head>
-      <title>Haziqah</title>
-      <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <?php
+        require 'head.php';
+      ?>
     </head>
 
     <body>
@@ -18,9 +25,19 @@
           <div class="nav-wrapper">
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="sass.html">Sass</a></li>
-              <li><a href="badges.html">Components</a></li>
-              <li><a href="collapsible.html">JavaScript</a></li>
+              <?php 
+                if (isset($current_user)) {
+
+                  echo '<li><a class="dropdown-button" href="#" data-activates="dropdown1">Hello, '. $current_user .'</a></li>';
+                  echo '<ul id="dropdown1" class="dropdown-content">
+                          <li><a href="processthislogout.php">Logout</a></li>
+                        </ul>';
+                }
+                else {
+                  echo '<li><a href="login.php">Login</a></li>';
+                }
+               ?>
+
             </ul>
           </div>
         </nav>
@@ -127,15 +144,16 @@
 
       </div>
       <!-- cards end -->
-
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
+        
+      <?php 
+        require 'script.php';
+      ?>
 
       <!-- begin materialize js init -->
       <script>
         $(document).ready(function(){
           $('.slider').slider();
+          $(".dropdown-button").dropdown();
         });
       </script>
 
